@@ -1,9 +1,12 @@
+import tensorflow as tf
 import matplotlib.pyplot as plt
 from keras import backend as K
 import numpy as np
 from keras import layers
 from keras import models
 from keras.datasets import boston_housing
+
+print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
 
 (train_data, train_targets), (test_data, test_targets) = boston_housing.load_data()
 
