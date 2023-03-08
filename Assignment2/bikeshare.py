@@ -7,14 +7,15 @@ import tensorboard
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.compose import ColumnTransformer
+from matplotlib import pyplot as plt
 
 print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
 
 num_epochs = 10
 
 # encoding error with degrees symbol in utf-8
-df = pd.read_csv("./SeoulBikeData.csv", 
-    encoding_errors="ignore")
+df = pd.read_csv("./SeoulBikeData.csv",
+                 encoding_errors="ignore")
 rename_dict = {}
 rename_dict["Temperature(C)"] = "Temperature"
 rename_dict["Humidity(%)"] = "Humidity"
@@ -53,15 +54,17 @@ print(X.columns)
 
 
 # train test split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=22)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.33, random_state=22)
 
 # validation split
-X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.2, random_state=22)
+X_train, X_val, y_train, y_val = train_test_split(
+    X_train, y_train, test_size=0.2, random_state=22)
 
 std = StandardScaler()
 ct = ColumnTransformer([
-        ('std', StandardScaler(), list(rename_dict.values()))
-    ], remainder='passthrough')
+    ('std', StandardScaler(), list(rename_dict.values()))
+], remainder='passthrough')
 ct.fit_transform(X_train, y_test)
 ct.transform(X_val)
 ct.transform(X_test)
@@ -76,6 +79,8 @@ print(X_train.describe())
 # print(y_test.shape)
 
 # Create the model
+
+
 def build_model():
     model = models.Sequential()
     model.add(layers.Dense(6, input_shape=(X_train.shape[1],)))
@@ -87,8 +92,25 @@ def build_model():
     model.compile(optimizer='adam', loss='mse', metrics=['mae'])
     return model
 
+
 tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir="./logs")
 model = build_model()
-model.fit(X_train, y_train, epochs=num_epochs,validation_data=(X_test, y_test), batch_size=1, verbose=True, callbacks=[tensorboard_callback])
+history = model.fit(X_train, y_train, epochs=num_epochs, validation_data=(
+    X_test, y_test), batch_size=1, verbose=True, callbacks=[tensorboard_callback])
 model.evaluate(X_test, y_test)
 
+loss = history.history['loss']
+val_loss = history.history['val_loss']
+
+epochs = range(1, len(loss) + 1)
+
+plt.plot(epochs, loss, 'bo', label='Training loss')
+plt.plot(epochs, val_loss, 'b', label='Validation loss')
+plt.title('Training and validation loss')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.legend()
+
+plt.show()
+
+plt.clf()   # clear figure
