@@ -1,2 +1,9 @@
 archive
-*/logs/*
+**/logs/*
+**/.ipynb_checkpoints
+**/*.aux
+**/*.toc
+**/*.log
+**/*.fls
+**/*.fdb_latexmk
+**/*.synctex.gz
