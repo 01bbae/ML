@@ -7,3 +7,4 @@ archive
 **/*.fls
 **/*.fdb_latexmk
 **/*.synctex.gz
+*.zip

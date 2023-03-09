@@ -3,6 +3,7 @@
 \usepackage{gensymb}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{subcaption}
 
 \begin{titlepage}
     \title{Assignment 2: Neural Networks \& Keras Intro}
@@ -36,6 +37,154 @@
 
 
 \section{Discussion}
+    \subsection{Binary Classification}
+    The IMDB movies dataset's further research, shows that removing hidden layers 
+    makes the overfitting process slower, while adding layers to the original model, 
+    speeds up the overfitting process in less epochs. 
+    \begin{figure}[H]
+        \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{images/movies/original.png}
+            \caption{original model}
+            \label{fig1:sfig1}
+        \end{subfigure}
+        \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{images/movies/1.png}
+            \caption{1 layer model}
+            \label{fig1:sfig2}
+        \end{subfigure}
+        \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{images/movies/2.png}
+            \caption{3 layer model}
+            \label{fig1:sfig3}
+        \end{subfigure}
+        \caption{training and validation loss for models with changing depth}
+        \label{fig1:fig}
+    \end{figure}
+    Adding more than units per layer did not have any significant difference model improvement. 
+    The higher unit per layer seemed to create more spikes in validation data and overfit the 
+    model much more in the same amount of epochs than the original model.
+    \begin{figure}[H]
+        \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{images/movies/original.png}
+            \caption{original model}
+            \label{fig2:sfig1}
+        \end{subfigure}
+        \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{images/movies/3.png}
+            \caption{32 unit model}
+            \label{fig2:sfig2}
+        \end{subfigure}
+        \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{images/movies/4.png}
+            \caption{64 unit model}
+            \label{fig2:sfig3}
+        \end{subfigure}
+        \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{images/movies/5.png}
+            \caption{128 unit model}
+            \label{fig2:sfig4}
+        \end{subfigure}
+        \caption{training and validation loss for models with changing depth}
+        \label{fig2:fig}
+    \end{figure}
+    Changing the loss function to mse resulted in 
+    the validation loss being relatively constant between epochs. The tanh activation 
+    function created a faster overfitting model and created a worse fitting model than ReLU.
+    \begin{figure}[H]
+        \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{images/movies/original.png}
+            \caption{original model}
+            \label{fig3:sfig1}
+        \end{subfigure}
+        \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{images/movies/6.png}
+            \caption{model using mae loss function}
+            \label{fig3:sfig2}
+        \end{subfigure}
+        \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{images/movies/7.png}
+            \caption{model using tanh activation}
+            \label{fig3:sfig3}
+        \end{subfigure}
+        \caption{training and validation loss for models with changing depth}
+        \label{fig3:fig}
+    \end{figure}
+
+    \subsection{Multiclass Classification}
+    The model with 128 and 256 unit per layer performed the best with the lowest validation 
+    loss. The 32 unit model did worse than the original model which was using 64 units.
+    \begin{figure}[H]
+        \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{images/reuters/original.png}
+            \caption{original model}
+            \label{fig4:sfig1}
+        \end{subfigure}
+        \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{images/reuters/1.png}
+            \caption{32 unit model}
+            \label{fig4:sfig2}
+        \end{subfigure}
+        \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{images/reuters/2.png}
+            \caption{128 unit model}
+            \label{fig4:sfig3}
+        \end{subfigure}
+        \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{images/reuters/3.png}
+            \caption{256 unit model}
+            \label{fig4:sfig4}
+        \end{subfigure}
+        \caption{training and validation loss for models with changing width}
+        \label{fig4:fig}
+    \end{figure}
+
+    The 1 layer model seemed to do slightly better than both the original and 3 layer model. 
+    It was also more stable with a smooth curve compared to the rugged curves of the validation 
+    loss of the original and 3 layer model.
+
+
+    \begin{figure}[H]
+        \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{images/reuters/original.png}
+            \caption{original model}
+            \label{fig5:sfig1}
+        \end{subfigure}
+        \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{images/reuters/4.png}
+            \caption{1 layer model}
+            \label{fig5:sfig2}
+        \end{subfigure}
+        \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{images/reuters/5.png}
+            \caption{3 layer model}
+            \label{fig5:sfig3}
+        \end{subfigure}
+        \caption{training and validation loss for models with changing depth}
+        \label{fig5:fig}
+    \end{figure}
+
+
+    \subsection{Regression}
+        There were no futher experiments with this regression example.
+
+    \subsection{Bicycle Sharing Regression Model}
     The bicycle sharing dataset has information about date, 
     temperature (\degree C), humidity (\%), wind speed (m/s), 
     visibility (10m),  dew point temperature (\degree C), 
@@ -73,7 +222,7 @@
     \begin{figure}[H]
         \includegraphics[width=\linewidth]{images/model1.png}
     \end{figure}
-    The first model used a 3 layer 8-8-1 hidden layer output structure with a batch size of 1.
+    The first model used a 8-8 hidden layer structure with a batch size of 1.
     It resulted in very high loss and big spikes in the validation loss, but there was a noticeable 
     negative slope in both training and validation losses, meaning that the model was underfitting.
     
@@ -92,7 +241,7 @@
     \begin{figure}[H]
         \includegraphics[width=\linewidth]{images/model4.png}
     \end{figure}
-    Model 4 kept the batch size of 20 but added one more layer making it an 8-8-8-1 structure to increase model complexity. 
+    Model 4 kept the batch size of 20 but added one more layer making it an 8-8-8 structure to increase model complexity. 
     While this looked like the validation loss was overfitting, it seemed that the loss was unchanging through the epochs. 
     This was confusing, so instead of increasing the depth of the neural network, the next iteration of the model added 
     more width instead.
@@ -100,33 +249,33 @@
     \begin{figure}[H]
         \includegraphics[width=\linewidth]{images/model5.png}
     \end{figure}
-    Model 5 built off of the 8-8-8-1 structure to a 16-16-16-1. This model completely overfit and was not the right direction. 
+    Model 5 built off of the 8-8-8-1 structure to a 16-16-16. This model completely overfit and was not the right direction. 
     One reason that was hypothesized was because the input layer of 35 features were being bottlenecked by the first 16 unit hidden layer.
 
     \begin{figure}[H]
         \includegraphics[width=\linewidth]{images/model6.png}
     \end{figure}
-    To fix model 5's overfitting, model 6 made the first hidden layer 64 units (64-16-16-1). This helped stop the overfitting and decreased overall 
+    To fix model 5's overfitting, model 6 made the first hidden layer 64 units (64-16-16). This helped stop the overfitting and decreased overall 
     loss to the lowest levels.
 
     \begin{figure}[H]
         \includegraphics[width=\linewidth]{images/model7.png}
     \end{figure}
     Following up on model 6's more asymetrical width structure, model 7 made the second to last hidden layer more narrow, down from 16 to 8 units 
-    (64-16-8-1). This significantly helped bring the validation loss. The validation loss was below the training loss. One of the explainations 
+    (64-16-8). This significantly helped bring the validation loss. The validation loss was below the training loss. One of the explainations 
     for this was that the training data goes through the dropout layers which might contribute to higher loss that the validation data doesn't go 
     through. Since the loss was so low, the next model adds complexity to gain lower loss before it overfits.
 
     \begin{figure}[H]
         \includegraphics[width=\linewidth]{images/model8.png}
     \end{figure}
-    Model 8 adds another hidden layer making the structure 64-32-16-8-1. For all these past models, unless stated otherwise, has no 
+    Model 8 adds another hidden layer making the structure 64-32-16-8. For all these past models, unless stated otherwise, has no 
     change to the batch sizes or any other parameter. This model performed even better and continued to not overfit.
 
     \begin{figure}[H]
         \includegraphics[width=\linewidth]{images/model9.png}
     \end{figure}
-    The incremental additions to the model seemed to work, so model 9 added 2 more layers, creating a 128-64-32-16-4-1 structure. 
+    The incremental additions to the model seemed to work, so model 9 added 2 more layers, creating a 128-64-32-16-4 structure. 
     This was more radical that the previous iterations because it added hidden layers in the front and the back at the same time. 
     The performance was not good compared to model 8 and the overall increase in loss and validation loss spikes returned.
 
@@ -139,7 +288,7 @@
     \begin{figure}[H]
         \includegraphics[width=\linewidth]{images/model11.png}
     \end{figure}
-    Model 11 went back to the more successful model 8 (with a batch size of 20 and a 64-32-16-8-1 structure), but the 
+    Model 11 went back to the more successful model 8 (with a batch size of 20 and a 64-32-16-8 structure), but the 
     number of epochs the model took to train increased from 20 to 50. The purpose was to see if longer training 
     could improve performance by a big margin or whether the model was stuck with the performance of the current model. 
     50 epochs was a relatively good point to stop training because the model started to see diminishing returns around 
@@ -157,7 +306,7 @@
     and adding layers all resulted in a lower performing model.
 
 \section{Analysis}
-    \begin{figure}[h!]
+    \begin{figure}[H]
         \includegraphics[width=\linewidth]{images/predictactual.png}
         \caption{Predicted v.s. Actual}
         \label{fig:predictactual}
@@ -168,7 +317,7 @@
     This is not the case, but the distribution around the line seems even which is a good sign. Also another observation is that there are 
     significantly more data points near the bottom left then fade out towards the top right. This means that there is some imbalance in the dataset.
 
-    \begin{figure}[h!]
+    \begin{figure}[H]
         \includegraphics[width=\linewidth]{images/histo.png}
         \caption{Data Distribution}
         \label{fig:histo}
@@ -179,7 +328,7 @@
     in certain cases where there were less data points to train on in certain areas of the data, especially the lower frequency data points. 
     The model might also be skewed to predict the higher frequency points with higher accuracy than lower frequency points.
 
-    \begin{figure}[h!]
+    \begin{figure}[H]
         \includegraphics[width=\linewidth]{images/mae.png}
         \caption{Mean Absolute Error}
         \label{fig:mae}
@@ -193,7 +342,14 @@
     at a certain time. Since this is a seasonal time series dataset, it would also be interesting to compare to other methods where the time 
     dimension can be preserved better.
 
-
-
-
+\section{References}
+    The first 3 neural network examples and code were taken from Francois Chollet's Deep Learning with Python (1st Edition) 
+    
+    
+    The Bicycle Sharing dataset was found on University of California, Irvine's Machine Learning Repository 
+    under the name "Seoul Bike Sharing Demand Data Set".
+    \begin{itemize}
+        \item Data Source :http://data.seoul.go.kr/
+        \item SOUTH KOREA PUBLIC HOLIDAYS. URL: publicholidays.go.kr
+      \end{itemize}
 \end{document}
